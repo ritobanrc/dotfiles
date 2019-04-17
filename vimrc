@@ -242,8 +242,6 @@ nnoremap <leader>ss :set spell spelllang=es keymap=accents<CR>
 " Debate mappings
 nnoremap <leader>dh :new \| set ft=markdown<CR>
 nnoremap <leader>dv :vnew \| set ft=markdown<CR>
+" General note taking
 inoremap <C-l> →<space>
 inoremap <C-h> <space>←<space>
-
-" map the command to something much faster
-nnoremap <silent> <leader>g :FloatIt<CR>

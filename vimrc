@@ -1,0 +1,1 @@
+/home/ritoban/.config/nvim/init.vim

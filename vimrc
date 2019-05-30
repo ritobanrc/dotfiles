@@ -2,10 +2,10 @@ syntax on
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'scrooloose/nerdtree' " File browset
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " highlight filles in nerdtree
-Plug 'ryanoasis/vim-devicons'  " icons in nerdtree
-Plug 'liuchengxu/vista.vim'  " Better tagbar
+"Plug 'scrooloose/nerdtree' " File browset
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " highlight filles in nerdtree
+"Plug 'ryanoasis/vim-devicons'  " icons in nerdtree
+"Plug 'liuchengxu/vista.vim'  " Better tagbar
 Plug 'vim-airline/vim-airline' " Show nicer bar on the bottom
 Plug 'vim-airline/vim-airline-themes' " Themes for that nicer bar
 "Plug 'davidhalter/jedi-vim' " jedi for python
@@ -34,7 +34,9 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 "Plug 'drewtempelmeyer/palenight.vim' " Pretty color scheme
 "Plug 'joshdick/onedark.vim' 
 Plug 'morhetz/gruvbox' 
-Plug 'ayu-theme/ayu-vim'
+"Plug 'ayu-theme/ayu-vim'
+"Plug 'tomasiser/vim-code-dark'
+Plug 'haishanh/night-owl.vim'
 
 "Plug 'bluz71/vim-moonfly-colors'
 "Plug 'rakr/vim-one'
@@ -48,7 +50,7 @@ filetype plugin indent on  " Enable filetype detection, autoindent, and filetype
 set fileformat=unix
 set number relativenumber " Line numberings, relative to current position
 set nowrap " Don't wrap lines
-autocmd FileType markdown,html,tex set wrap linebreak  " If it's a markup language, wrap and break at spaces or punctuation
+autocmd FileType markdown,html,tex,rst set wrap linebreak  " If it's a markup language, wrap and break at spaces or punctuation
 
 
 set nobackup  " These are also mostly annoying
@@ -64,8 +66,8 @@ vnoremap x "_x
 """"""""""""""''' Colorscheme '""""""""""""
 function! MyHighlights() abort
     " Transparent background - "None" highlight for Non Text and normal
-    highlight NonText ctermbg=none 
-    highlight Normal guibg=none ctermbg=none
+    "highlight NonText ctermbg=none 
+    "highlight Normal guibg=none ctermbg=none
 endfunction
 
 augroup MyColors
@@ -74,7 +76,7 @@ augroup MyColors
 augroup END
 
 "let ayucolor="mirage"   " for dark version of theme
-colorscheme gruvbox " Color scheme for text
+colorscheme night-owl " Color scheme for text
 
 if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -103,6 +105,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+nnoremap <leader>st :sp \| term<CR>a
+
 """"""""""""" Scrolling """"""""""""""
 set scrolloff=8  " Start scrolling 8 lines from the edges. 
 set sidescrolloff=10 " Same as previous, except horizontally
@@ -117,8 +121,8 @@ set wrapscan " Wrap searching to top of document
 
 """"""""""""""" Navigation """""""""""""""""""""
 set hidden
-noremap <S-j> :bprevious<CR>
-noremap <S-k> :bnext<CR>
+noremap <C-h> :bprevious<CR>
+noremap <C-l> :bnext<CR>
 
 nnoremap <tab> :tabn<CR>
 """"""""""""""""" Plugins """""""""""""
@@ -184,7 +188,15 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-" Show CoC errosin Airline
+set completeopt-=menu
+set completeopt+=menuone   " show the popup menu even when there is only 1 match
+set completeopt-=longest   " don't insert the longest common text
+set completeopt-=preview   " don't show preview window
+set completeopt+=noinsert  " don't insert any text until user chooses a match
+set completeopt-=noselect  " select first match
+
+" Show CoC errors in Airline
+let g:airline_section_error='%<%f\ %h%m%r%{kite#statusline()}%=%-14.(%l,%c%V%)\ %P'
 let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
@@ -204,15 +216,26 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-nnoremap <silent> <leader>d :call <SID>show_documentation()<CR>
+nnoremap <silent> <leader>k :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    call CocActionAsync('doHover')
   endif
 endfunction
-"
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+highlight default CocHighlightText  guibg=#332211 ctermbg=223`
 " Remap for rename current word 
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -222,6 +245,13 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+
+""""""""""" Terminal Mode Mappings '""""""""""""
+" Exit from terminal mode
+tnoremap <Esc> <C-\><C-n>
+
+tnoremap jk <C-\><C-n>
+tnoremap kj <C-\><C-n>
 
 """"""""""""""  Other Functionality and Shortcuts '"""""""""""""""
 augroup AutoRun
@@ -245,3 +275,16 @@ nnoremap <leader>dv :vnew \| set ft=markdown<CR>
 " General note taking
 inoremap <C-l> →<space>
 inoremap <C-h> <space>←<space>
+
+" opposite of gJ
+nnoremap K  i <enter><esc>k$x 
+" opposite of J
+nnoremap gK i<enter><esc>k$   
+nnoremap H ^
+nnoremap L $
+
+"autoclose tags -- use CocPairs instead
+"inoremap ( ()<Left>
+"inoremap { {}<Left>
+"inoremap [ []<Left>
+"inoremap  ""<Left>

@@ -97,7 +97,7 @@ export PATH=$PATH:$GOROOT/bin
 #
 #
 # Use Wal colors
-#cat ~/.cache/wal/sequences
+(cat ~/.cache/wal/sequences &)
 
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -110,6 +110,7 @@ alias cfi="nvim ~/.config/i3/config"
 alias cfv="nvim ~/.config/nvim/init.vim"
 alias cfp="nvim ~/.config/polybar/config"
 alias cfc="nvim ~/.compton.conf"
+alias cfa="nvim ~/.config/alacritty/alacritty.yml"
 
 alias v="nvim"
 

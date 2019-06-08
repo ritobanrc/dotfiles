@@ -5,6 +5,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 "Plug 'scrooloose/nerdtree' " File browset
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " highlight filles in nerdtree
 "Plug 'ryanoasis/vim-devicons'  " icons in nerdtree
+Plug 'majutsushi/tagbar'
 "Plug 'liuchengxu/vista.vim'  " Better tagbar
 Plug 'vim-airline/vim-airline' " Show nicer bar on the bottom
 Plug 'vim-airline/vim-airline-themes' " Themes for that nicer bar
@@ -121,16 +122,16 @@ set wrapscan " Wrap searching to top of document
 
 """"""""""""""" Navigation """""""""""""""""""""
 set hidden
-noremap <C-h> :bprevious<CR>
-noremap <C-l> :bnext<CR>
+noremap <C-n> :bprevious<CR>
+noremap <C-m> :bnext<CR>
 
 nnoremap <tab> :tabn<CR>
 """"""""""""""""" Plugins """""""""""""
-noremap <C-n> :NERDTreeToggle<CR>
+"noremap <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeLimitedSyntax = 1 " Highlight fewer filetypes for faster NERDTree
 
 " Tagbar
-noremap <C-t> :Vista!!<CR>
+noremap <C-t> :TagbarToggle<CR>
 
 " FZF
 nmap <Leader>f :GFiles<CR>

@@ -111,6 +111,7 @@ alias cfv="nvim ~/.config/nvim/init.vim"
 alias cfp="nvim ~/.config/polybar/config"
 alias cfc="nvim ~/.compton.conf"
 alias cfa="nvim ~/.config/alacritty/alacritty.yml"
+alias cfr="nvim ~/.config/ranger/rc.conf"
 
 alias v="nvim"
 

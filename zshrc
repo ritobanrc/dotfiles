@@ -97,7 +97,7 @@ export PATH=$PATH:$GOROOT/bin
 #
 #
 # Use Wal colors
-(cat ~/.cache/wal/sequences &)
+#(cat ~/.cache/wal/sequences &)
 
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,

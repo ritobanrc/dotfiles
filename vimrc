@@ -67,8 +67,11 @@ vnoremap x "_x
 """"""""""""""''' Colorscheme '""""""""""""
 function! MyHighlights() abort
     " Transparent background - "None" highlight for Non Text and normal
-    "highlight NonText ctermbg=none 
-    "highlight Normal guibg=none ctermbg=none
+    highlight NonText ctermbg=none 
+    highlight Normal guibg=none ctermbg=none
+    highlight SignColumn guibg=none ctermbg=none
+    highlight LineNr guibg=none ctermbg=none
+    highlight EndOfBuffer guibg=none ctermbg=none
 endfunction
 
 augroup MyColors

@@ -184,7 +184,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 " I don't care about encoding most of the time
 let g:airline_section_y = "" 
-let g:airline_theme='distinguished'
+let g:airline_theme='raven'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
